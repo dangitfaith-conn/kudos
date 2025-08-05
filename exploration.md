@@ -29,7 +29,6 @@ We want to create a simple UI that is an award system for a set of users.  These
 - Start with rough prototype that can handle the above experience using local storage if needed [easy]
 - Iterate on experience with functioning backend [medium]
 - Integration with the store [hard]
-- 
 - Migrate old to new system
 
 
