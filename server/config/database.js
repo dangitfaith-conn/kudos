@@ -1,5 +1,4 @@
 const mysql = require('mysql2');
-require('dotenv').config();
 
 // Create a connection pool using environment variables.
 // A connection pool is more efficient than creating a new connection for every query.
@@ -9,10 +8,9 @@ const pool = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   waitForConnections: true,
-  connectionLimit: 10, // Adjust as needed
+  connectionLimit: 10, // Default is 10, adjust as needed
   queueLimit: 0
 });
 
-// Export the pool's promise-based interface, which allows for async/await usage.
+// Export the pool's promise-based interface, which allows for modern async/await usage.
 module.exports = pool.promise();
-
