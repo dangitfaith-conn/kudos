@@ -10,7 +10,7 @@ This document outlines the technical architecture, design, and implementation pl
 
 ## 2. Technology Stack
 
-- **Frontend:** React (using Create React App or Vite)
+- **Frontend:** React (using Vite) with Chakra UI
 - **Backend:** Node.js with the Express.js framework
 - **Database:** MySQL
 - **Authentication:** JSON Web Tokens (JWT)
@@ -125,7 +125,7 @@ The project will be developed in logical, iterative phases.
 
 ### Phase 3: Frontend Foundation
 - **Tasks:**
-    - Initialize React project.
+    - Initialize React project using Vite.
     - Set up project structure (components, pages, services/api).
     - Implement routing (e.g., using `react-router-dom`).
     - Build the Login page and authentication logic (API calls, storing JWT in local storage).

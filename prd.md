@@ -77,7 +77,7 @@ The Kudos project is an internal web application designed to foster a culture of
 
 ## 5. Technical Specifications & Assumptions
 
-- **Frontend:** JavaScript, React
+- **Frontend:** JavaScript, React, Chakra UI
 - **Backend:** JavaScript, Node.js
 - **Database:** MySQL
 - **Credit Value:** 1 Spending Credit is equivalent to $0.50 USD.

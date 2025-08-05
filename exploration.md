@@ -87,3 +87,38 @@ Security is important: we want to avoid people finding a hack to assign themselv
 - **Automation Scope (Follow-up):**
   - For the automated "award balance" refresh, should the initial prototype include an admin UI to configure the frequency and amount, or should we start with a single, hardcoded rule (e.g., "give 100 credits on the 1st of every month") and build the configuration UI in a later iteration?
     - Answer: Let's start with a single, hardcoded rule.  We can build the configuration UI later.
+
+## UI/UX Brainstorming
+
+### Questions for Consideration
+1.  **What's the desired aesthetic?** Are you picturing something clean and corporate like Google's apps, something more modern and friendly, or a completely custom look?
+- Answer: I'm looking for something clean, friendly, and has some elements of fun.  An example of fun would be an occasional cute animation (like Twitter's like animation during a holiday or event)
+2.  **How important is out-of-the-box functionality vs. customizability?** Do you prefer a library with pre-built, fully-styled components that work immediately, or a more flexible "headless" or utility-first framework that gives you total control over the design?
+- Answer: I prefer utility-first. 
+3.  **What's our priority?** Is it speed of development (getting a functional prototype up quickly) or creating a unique, branded look and feel?
+- Answer: Speed of development for now.  We should revisit creating a unique experience after we have something working end-to-end, so let's make sure we keep things flexible.
+
+### UI Framework Candidates
+
+1.  **Material-UI (MUI)**
+    *   **Description:** A comprehensive library of components that implements Google's Material Design.
+    *   **Pros:** Massive component library, great for dashboards, excellent documentation.
+    *   **Cons:** Can look very "Googley" by default, customization can be verbose.
+
+2.  **Chakra UI**
+    *   **Description:** A simple, modular, and accessible component library.
+    *   **Pros:** Great developer experience, highly accessible, very composable.
+    *   **Cons:** Smaller component set than MUI or AntD.
+
+3.  **Ant Design (AntD)**
+    *   **Description:** An enterprise-focused UI design language and React UI library.
+    *   **Pros:** Professional look, rich components for enterprise apps.
+    *   **Cons:** Can be "heavy" in terms of bundle size, complex customization.
+
+## UI Framework Decision
+
+### Recommendation
+Based on the project goals, **Chakra UI** is the recommended framework. It perfectly balances the need for rapid development (priority #1) with the desire for a utility-first developer experience and a clean, friendly aesthetic. It provides pre-built components to speed up prototyping while offering easy, prop-based styling that aligns with the utility-first preference.
+
+### Decision
+The project will proceed using the **Chakra UI** component library for the frontend.
