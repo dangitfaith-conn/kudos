@@ -6,6 +6,7 @@ const app = express();
 
 // Middleware
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/users');
 app.use(cors());
 app.use(express.json()); // for parsing application/json
 
@@ -16,6 +17,7 @@ app.get('/', (req, res) => {
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 
 const PORT = process.env.PORT || 3001;
 
