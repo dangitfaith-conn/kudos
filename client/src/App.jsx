@@ -6,29 +6,32 @@ import AdminPage from './pages/AdminPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import { Box } from '@chakra-ui/react';
+import MainLayout from './components/layout/MainLayout';
 
 function App() {
   return (
     <Box p={4}>
-      <Routes>
-        {/* Public route accessible to everyone */}
-        <Route path="/login" element={<LoginPage />} />
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/login" element={<LoginPage />} />
 
-        {/* Redirects the root path "/" to the dashboard */}
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      {/* Redirect root to dashboard */}
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-        {/* Protected Routes that require a user to be logged in */}
+      {/* Protected Routes with MainLayout */}
+      <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
+        <Route path="dashboard" element={<DashboardPage />} />
         <Route 
-          path="/dashboard" 
-          element={
-            <ProtectedRoute><DashboardPage /></ProtectedRoute>
-          } 
+          path="admin" 
+          element={<ProtectedRoute adminOnly={true}><AdminPage /></ProtectedRoute>} 
         />
-        <Route path="/admin" element={<ProtectedRoute adminOnly={true}><AdminPage /></ProtectedRoute>} />
+      </Route>
 
-        {/* A catch-all route for any path that doesn't match */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      {/* Not Found Route */}
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+      
+
     </Box>
   );
 }
