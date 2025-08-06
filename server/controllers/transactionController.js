@@ -46,12 +46,12 @@ const createTransaction = async (req, res) => {
     return res.status(400).json({ message: 'Recipient, amount, and value are required.' });
   }
 
-  const parsedAmount = parseFloat(amount, 10);
+  const parsedAmount = parseInt(amount, 10);
   const parsedRecipientId = parseInt(recipientId, 10);
 
 
   if (isNaN(parsedAmount) || parsedAmount <= 0) {
-    return res.status(400).json({ message: 'Amount must be a positive number.' });
+    return res.status(400).json({ message: 'Amount must be a valid positive number.' });
   }
 
   if (senderId === parsedRecipientId) {
@@ -67,7 +67,7 @@ const createTransaction = async (req, res) => {
     const [senderRows] = await connection.query('SELECT award_balance FROM users WHERE id = ? FOR UPDATE', [senderId]);
     const sender = senderRows[0];
 
-    if (!sender || sender.award_balance < amount) {
+    if (!sender || sender.award_balance < parsedAmount) {
       await connection.rollback();
       return res.status(400).json({ message: 'Insufficient award balance.' });
     }
