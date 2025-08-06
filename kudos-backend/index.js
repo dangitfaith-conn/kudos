@@ -1,13 +1,18 @@
 // index.js
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const db = require('./db'); // Import our database connection
 const authRoutes = require('./routes/auth'); // Import our new auth routes
 const userRoutes = require('./routes/users'); // Import our new user routes
 const transactionRoutes = require('./routes/transactions'); // Import transaction routes
+const valueRoutes = require('./routes/values'); // Import value routes
 
 const app = express();
 const port = 3001; // Use 3001 to avoid conflict with React's default 3000
+
+// Enable CORS for all routes, allowing our frontend to make requests.
+app.use(cors());
 
 // Middleware to parse JSON bodies. This is how we get `req.body`.
 app.use(bodyParser.json());
@@ -35,6 +40,9 @@ app.use('/api/users', userRoutes);
 
 // Tell our app to use the transaction routes
 app.use('/api/transactions', transactionRoutes);
+
+// Tell our app to use the value routes
+app.use('/api/values', valueRoutes);
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
