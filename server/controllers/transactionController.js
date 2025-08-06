@@ -96,4 +96,19 @@ const createTransaction = async (req, res) => {
   }
 };
 
-module.exports = { getApprovedTransactions, createTransaction };
+/**
+ * @desc    Get all company values
+ * @route   GET /api/transactions/values
+ * @access  Private
+ */
+const getCompanyValues = async (req, res) => {
+  try {
+    const [values] = await db.query('SELECT * FROM \`values\` ORDER BY name');
+    res.json(values);
+  } catch (error) {
+    console.error('Error fetching company values:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+module.exports = { getApprovedTransactions, createTransaction, getCompanyValues };

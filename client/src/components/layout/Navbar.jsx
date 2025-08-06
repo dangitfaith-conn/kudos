@@ -35,6 +35,7 @@ const Navbar = () => {
       <Heading as="h1" size="md">Kudos</Heading>
       <HStack spacing={4} ml={10}>
         <NavLink to="/dashboard"><Text>Dashboard</Text></NavLink>
+        <NavLink to="/give-kudos"><Text>Give Kudos</Text></NavLink>
         {user?.isAdmin && <NavLink to="/admin"><Text>Admin</Text></NavLink>}
       </HStack>
       <Spacer />

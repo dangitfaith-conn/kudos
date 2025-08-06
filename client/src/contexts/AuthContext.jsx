@@ -6,14 +6,13 @@ export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // On initial load, check for a token in local storage
     const token = localStorage.getItem('token');
     if (token) {
       try {
         const decodedUser = jwtDecode(token);
-        // Optional: Check if token is expired
         if (decodedUser.exp * 1000 > Date.now()) {
           setUser(decodedUser);
         } else {
@@ -24,6 +23,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('token');
       }
     }
+    setLoading(false);
   }, []);
 
   const login = async (email, password) => {
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

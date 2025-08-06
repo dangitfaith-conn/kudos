@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import AdminPage from './pages/AdminPage';
+import GiveKudosPage from './pages/GiveKudosPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import { Box } from '@chakra-ui/react';
@@ -21,6 +22,7 @@ function App() {
       {/* Protected Routes with MainLayout */}
       <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
         <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="give-kudos" element={<GiveKudosPage />} />
         <Route 
           path="admin" 
           element={<ProtectedRoute adminOnly={true}><AdminPage /></ProtectedRoute>} 
