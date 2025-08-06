@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Box,
   Heading,
@@ -7,62 +7,13 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  VStack,
-  HStack,
-  Spinner,
-  Alert,
-  AlertIcon,
-  Button,
-  useToast,
 } from '@chakra-ui/react';
-import * as adminService from '../services/adminService';
-import KudoCard from '../components/ui/KudoCard';
-import CreateUserForm from '../components/admin/CreateUserForm';
-import AwardKudosForm from '../components/admin/AwardKudosForm';
-
+import { usePendingTransactions } from '../hooks/usePendingTransactions';
+import PendingTransactionsList from '../components/admin/PendingTransactionsList';
+import UserManagement from '../components/admin/UserManagement';
 
 const AdminPage = () => {
-  const [pending, setPending] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const toast = useToast();
-
-  const fetchPending = async () => {
-    try {
-      setLoading(true);
-      const data = await adminService.getPendingTransactions();
-      setPending(data);
-    } catch (err) {
-      setError('Failed to fetch pending transactions.');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchPending();
-  }, []);
-
-  const handleApprove = async (transactionId) => {
-    try {
-      await adminService.approveTransaction(transactionId);
-      toast({ title: 'Transaction approved', status: 'success' });
-      fetchPending(); // Refresh the list
-    } catch (err) {
-      toast({ title: 'Approval failed', description: err.message, status: 'error' });
-    }
-  };
-
-  const handleDeny = async (transactionId) => {
-    try {
-      await adminService.denyTransaction(transactionId);
-      toast({ title: 'Transaction denied', status: 'warning' });
-      fetchPending(); // Refresh the list
-    } catch (err) {
-      toast({ title: 'Denial failed', description: err.message, status: 'error' });
-    }
-  };
+  const { pending, loading, error, handleApprove, handleDeny } = usePendingTransactions();
 
   return (
     <Box p={8}>
@@ -74,38 +25,16 @@ const AdminPage = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <VStack spacing={6} align="stretch">
-              <Heading as="h2" size="lg">Pending Kudos</Heading>
-              {loading ? (
-                <Spinner />
-              ) : error ? (
-                <Alert status="error"><AlertIcon />{error}</Alert>
-              ) : pending.length === 0 ? (
-                <Alert status="info"><AlertIcon />No pending transactions.</Alert>
-              ) : (
-                pending.map((tx) => (
-                  <Box key={tx.id} p={4} borderWidth="1px" borderRadius="md">
-                    <KudoCard transaction={tx} />
-                    <HStack mt={4} justify="flex-end">
-                      <Button colorScheme="green" onClick={() => handleApprove(tx.id)}>Approve</Button>
-                      <Button colorScheme="red" onClick={() => handleDeny(tx.id)}>Deny</Button>
-                    </HStack>
-                  </Box>
-                ))
-              )}
-            </VStack>
+            <PendingTransactionsList
+              pending={pending}
+              loading={loading}
+              error={error}
+              onApprove={handleApprove}
+              onDeny={handleDeny}
+            />
           </TabPanel>
           <TabPanel>
-            <VStack spacing={8}>
-              <Box w="100%">
-                <Heading as="h2" size="lg" mb={4}>Create User</Heading>
-                <CreateUserForm />
-              </Box>
-              <Box w="100%">
-                <Heading as="h2" size="lg" mt={8} mb={4}>Award Kudos</Heading>
-                <AwardKudosForm />
-              </Box>
-            </VStack>
+            <UserManagement />
           </TabPanel>
         </TabPanels>
       </Tabs>
