@@ -49,7 +49,7 @@ function GiveKudosForm({ users, values, onKudoSubmit }) {
     return (
         <div style={{ border: '1px solid #ccc', padding: '1rem', marginTop: '1rem' }}>
             <h3>Give a Kudo</h3>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} data-testid="kudos-form">
                 <div>
                     <label htmlFor="recipient">To:</label>
                     <select id="recipient" value={recipientId} onChange={(e) => setRecipientId(e.target.value)} required>
@@ -76,7 +76,7 @@ function GiveKudosForm({ users, values, onKudoSubmit }) {
                     <label htmlFor="message">Message:</label>
                     <textarea id="message" value={message} onChange={(e) => setMessage(e.target.value)} maxLength="280" />
                 </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {error && <p style={{ color: 'red' }} data-testid="error-message">{error}</p>}
                 {success && <p style={{ color: 'green' }}>{success}</p>}
                 <button type="submit">Send Kudo</button>
             </form>

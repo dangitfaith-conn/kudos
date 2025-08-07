@@ -15,7 +15,7 @@ function ModerationQueue({ transactions, onApprove, onDeny }) {
             <h3>Pending Kudos</h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
                 {transactions.map((tx) => (
-                    <li key={tx.id} style={{ border: '1px solid #eee', padding: '1rem', marginBottom: '1rem', borderRadius: '5px' }}>
+                    <li key={tx.id} data-testid={`transaction-item-${tx.id}`} style={{ border: '1px solid #eee', padding: '1rem', marginBottom: '1rem', borderRadius: '5px' }}>
                         <p>
                             <strong>{tx.sender_name}</strong> wants to give <strong>{tx.amount} Kudos</strong> to <strong>{tx.recipient_name}</strong> for <em>{tx.value_name}</em>.
                         </p>

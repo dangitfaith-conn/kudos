@@ -61,6 +61,20 @@ async function seed() {
         await db.query('INSERT INTO users (email, password_hash, full_name, is_admin) VALUES (?)', [regularUser]);
         console.log('Seeded regular user.');
 
+        // // 5. Seed a third, non-admin user
+        // const regularPassword = 'password789';
+        // const hashedRegularPassword = await bcrypt.hash(regularPassword, saltRounds);
+        //
+        // const regularUser = [
+        //     'jon.doedoe@kudos.com',
+        //     hashedRegularPassword,
+        //     'Jon DoeDoe',
+        //     false, // is_admin
+        // ];
+        //
+        // await db.query('INSERT INTO users (email, password_hash, full_name, is_admin) VALUES (?)', [regularUser]);
+        // console.log('Seeded regular user.');
+
         console.log('Database seeding complete!');
     } catch (error) {
         console.error('Error seeding database:', error);

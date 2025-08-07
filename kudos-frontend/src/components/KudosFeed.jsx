@@ -17,7 +17,7 @@ function KudosFeed({ transactions }) {
             <Heading as="h3" size="lg" mb={4}>Recent Activity</Heading>
             <VStack spacing={4} align="stretch">
                 {transactions.map((tx) => (
-                    <Box key={tx.id} p={5} shadow="md" borderWidth="1px" borderRadius="md">
+                    <Box key={tx.id} p={5} shadow="md" borderWidth="1px" borderRadius="md" data-testid={`transaction-${tx.id}`}>
                         <Text fontSize="lg">
                             <Text as="b">{tx.sender_name}</Text> gave <Text as="b">{tx.amount} Kudos</Text> to <Text as="b">{tx.recipient_name}</Text> for <em>{tx.value_name}</em>.
                         </Text>
