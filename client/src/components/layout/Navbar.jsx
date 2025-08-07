@@ -46,7 +46,7 @@ const Navbar = () => {
             <Text fontSize="sm">Award Balance: {profile.award_balance}</Text>
             <Text fontSize="sm">Spending Balance: {profile.spending_balance}</Text>
           </Box>
-          <Button colorScheme="teal" variant="outline" onClick={handleLogout}>Logout</Button>
+          <Button bg="teal.500" color="white" variant="outline" onClick={handleLogout}>Logout</Button>
         </HStack>
       )}
     </Flex>

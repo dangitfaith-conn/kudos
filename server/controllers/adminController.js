@@ -1,5 +1,5 @@
 const db = require('../config/database');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 /**
  * @desc    Get all pending transactions for moderation

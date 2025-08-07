@@ -122,7 +122,7 @@ const GiveKudosPage = () => {
             />
           </FormControl>
 
-          <Button type="submit" colorScheme="teal" size="lg">
+          <Button type="submit" bg="brand.600" size="lg">
             Send Kudos
           </Button>
         </VStack>
