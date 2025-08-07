@@ -27,4 +27,3 @@ const startCreditRefreshJob = () => {
 };
 
 module.exports = { startCreditRefreshJob, refreshMonthlyCredits };
-
