@@ -15,10 +15,10 @@
 
 
 #### Day 2: More Coding
-- At first, it often proactively code reviewed what we had in place.  This feels great at first but as the codebase grew, this seemed distracting and unnecessary.  I did prompt it “Please don’t suggest code improvement until prompted,” to which it agreed, but still did it.  Ironically, the code improvements were on code that it first put down and I did not touch.  I think any developer can relate to this and goes to show that it will not create perfect code to start.  Some improvements that it suggested for itself:
+- At first, it often proactively code reviewed what we had in place.  This feels great at first but as the codebase grew, this seemed distracting and unnecessary.  I did prompt it `Please don’t suggest code improvement until prompted`, to which it agreed... but still did proactively reviewed code.  Ironically, the code improvements were on code that it first put down and I did not change.  I think any developer can relate to this and goes to show that nobody's code is perfect to start.  Some improvements that it suggested for itself:
     - Reducing redundancy and keeping in mind variable hoisting in JavaScript
     - Identifying bugs in executing SQL commands
-- Given the amount of code being created, at first it was hard to determine when to review Gemini’s work.  It started to feel more natural by Day 3 when everything was working end to end.  Takeaway here is that it may take time to develop intuition when to stop Gemini and take over.
+- Given the amount of code being created, it was initially challenging to determine when to review Gemini’s work.  It started to feel more natural by Day 3 when everything was working end-to-end.  Takeaway here is that it may take time to develop intuition.
 - Code reviews! It eagerly took on any suggestions for improvement.  I was actively reviewing the generated react components and made suggestions for extraction.  It led to cleaner, more readable code.
 
 #### Day 3: Wrapping up with the last phase for MVP
@@ -32,7 +32,7 @@
 
 ## Takeaways
 ### Seeing the forest for the trees 
-It's up to you to keep the high-level goal in mind, otherwise the both of you could be adding code that is myopic. Reference your plan and goals frequently when prompting.
+It's up to you to keep the high-level goal in mind, otherwise the both you and Gemini could be adding code that is myopic. Reference your plan and goals frequently when prompting.
 
 ### Great for ideation and documenting
 I loved being able to generate a prd, tech plan, and test plan so quickly with Gemini.  I think the key here is to be detailed as you can upfront. Then let Gemini ask you follow-up questions.  I also appreciate the code comments Gemini quickly adds.  Very helpful for engineers of all levels.
@@ -44,7 +44,7 @@ Cuz when Gemini screws up, it can obliterate giant pieces of code!  I had a few 
 Great for prototyping!  Next time around, I might get something done in < 1 day now that I know the quirks and challenges of using VS Code + Gemini.
 
 ### Overcommunicate and Check for Understanding
-Always set the context and check what it's planning on doing next.  Tell it what it should know, otherwise it could hallucinate and come up with something out there.  At one point, it claimed there was a feature that didn't exist. Maybe this is good communication practice for aspiring leaders/mentors?
+Always set the context and check what Gemini is planning on doing next.  Tell it what it should know, otherwise it could hallucinate and come up with something out there.  At one point, it claimed there was a feature that didn't exist. Maybe this is good communication practice for aspiring leaders/mentors?
 
 ### You can create pretty clean code...
 ...if you already know what you're doing.  A seasoned engineer can nudge it in the right direction.  
