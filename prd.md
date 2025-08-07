@@ -102,3 +102,4 @@ The following features are planned for future iterations but will not be include
 - An admin interface for managing the list of company values.
 - Automated awards for user-specific events (e.g., birthdays, work anniversaries).
 - Migration of data from any previous system.
+- **Improved Transaction Handling:** A future version will immediately decrement a sender's `award_balance` into a "pending" state when a Kudo is submitted, rather than upon admin approval, to prevent race conditions.

@@ -9,6 +9,7 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const transactionRoutes = require('./routes/transactions');
 const adminRoutes = require('./routes/admin');
+const { startCreditRefreshJob } = require('./scheduler/creditRefreshJob');
 
 
 app.use(cors());
@@ -29,4 +30,6 @@ const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
+  // Start scheduled jobs
+  startCreditRefreshJob();
 });

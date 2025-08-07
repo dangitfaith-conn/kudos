@@ -29,30 +29,84 @@ This document outlines the testing strategy for the Kudos Recognition Platform M
 - **End-to-End (E2E) Testing:** Automated tests will simulate full user workflows from the browser, covering all major user stories (e.g., logging in, giving a kudo, admin approving it, balances updating).
 - **Manual/Exploratory Testing:** Manual testing will be performed to catch issues not covered by automated tests and to verify the overall user experience.
 
-## 4. Questions for Clarification
+## 4. Detailed Test Scenarios
 
-Before creating detailed test cases, the following points need clarification to ensure comprehensive test coverage:
+The following scenarios will be tested through a combination of automated (unit, integration, E2E) and manual tests.
 
-1.  **Transaction Logic & Race Conditions:** The PRD states the sender's `award_balance` is debited upon admin *approval*. What is the expected behavior if a user has 100 credits, sends two separate 75-credit kudos, and an admin attempts to approve both?
-    -   Should the first approval succeed and the second one fail?
-    -   What specific feedback should the admin receive when the second approval fails?
-    -   What feedback (if any) should the sender of the second kudo receive?
+### 4.1. User Authentication
+| Test Case ID | Description | Expected Result |
+| :--- | :--- | :--- |
+| AUTH-01 | User logs in with correct credentials. | Login is successful. User is redirected to the dashboard. A valid JWT is stored. |
+| AUTH-02 | User logs in with incorrect password. | Login fails. User sees "Cannot login" error message. |
+| AUTH-03 | User logs in with an email that does not exist. | Login fails. User sees "Cannot login" error message. |
 
-2.  **User Transaction History:** The initial exploration document mentions "Users are able to see their latest transactions." The PRD and Tech Plan focus on a global feed of *approved* transactions. Should there also be a dedicated view for a user to see their own personal transaction history (both sent and received, including `pending` and `denied` statuses)?
+### 4.2. Standard User Workflow
+| Test Case ID | Description | Expected Result |
+| :--- | :--- | :--- |
+| USER-01 | Logged-in user views the dashboard. | User's `award_balance` and `spending_balance` are correctly displayed. |
+| USER-02 | User views the global transaction feed. | Feed displays only `approved` transactions. Each entry shows sender, recipient, message, and value. |
+| USER-03 | User successfully gives a Kudo. | Form submits successfully. A `pending` transaction is created in the database. User is notified of success. |
+| USER-04 | User attempts to give more credits than their `award_balance`. | Form submission fails. User sees "You cannot give more credits than you have" error. |
+| USER-05 | User attempts to give kudos to themselves. | Form submission fails. User sees "You cannot give kudos to yourself" error. |
+| USER-06 | User attempts to submit the "Give Kudo" form with missing fields. | Form submission fails. User sees "please fill out all required fields" error. |
 
-3.  **Notification Mechanism:** For a denied transaction, the requirement is a "simple notification." What is the specific mechanism for this? (e.g., a temporary toast/snackbar message in the UI, a permanent notification in a dedicated "Notifications" area, an email?)
+### 4.3. Admin Workflow
+| Test Case ID | Description | Expected Result |
+| :--- | :--- | :--- |
+| ADMIN-01 | Admin creates a new standard user. | User is created in the database with `is_admin=false`. |
+| ADMIN-02 | Admin creates a new admin user. | User is created in the database with `is_admin=true`. |
+| ADMIN-03 | Admin approves a pending transaction. | Transaction status becomes `approved`. Sender's `award_balance` is debited. Recipient's `spending_balance` is credited. Transaction appears on the global feed. |
+| ADMIN-04 | Admin denies a pending transaction. | Transaction status becomes `denied`. Sender's and recipient's balances are unchanged. Sender receives a toast/snackbar notification. |
+| ADMIN-05 | Admin manually awards credits to a user. | The target user's `award_balance` is correctly increased by the specified amount. |
+| ADMIN-06 | **Race Condition:** User with 100 credits sends two 75-credit kudos. Admin approves the first, then the second. | The first approval succeeds. The second approval fails, and the admin sees a warning about insufficient funds. The user's balances reflect only the first successful transaction. |
 
-4.  **User-Facing Error Handling:** Could you provide more details on the expected user-facing error messages for common failure scenarios? For example:
-    -   Incorrect login credentials.
-    -   Submitting the "Give Kudo" form with missing fields (e.g., no recipient).
-    -   A user attempting to give more credits than they have available.
-    -   A user attempting to give kudos to themselves.
+### 4.4. Automation
+| Test Case ID | Description | Expected Result |
+| :--- | :--- | :--- |
+| AUTO-01 | Manually trigger the monthly credit refresh job. | All users in the database have their `award_balance` increased by 100. |
 
-5.  **Performance Testing:** The plan is to eventually support 200+ users. Should the initial test plan include any baseline performance or load testing, particularly for features like the recipient search dropdown (`GET /api/users`) which fetches all users at once?
+### 4.5. Security
+| Test Case ID | Description | Expected Result |
+| :--- | :--- | :--- |
+| SEC-01 | A non-admin user attempts to call an admin API endpoint directly (e.g., `POST /api/admin/users`). | The API returns a 403 Forbidden or 401 Unauthorized error. No data is changed. |
+| SEC-02 | A non-admin user attempts to call the transaction approval endpoint directly. | The API returns a 403 Forbidden or 401 Unauthorized error. The transaction status is unchanged. |
+| SEC-03 | A user submits a Kudo with a message containing a `<script>` tag. | The script tag is rendered as plain text on the transaction feed and is not executed by the browser (XSS prevention). |
 
-6.  **Security Test Cases:** The tech plan covers the security foundation. Should we explicitly test for specific application-level vulnerabilities? For example:
-    -   A non-admin user attempting to access admin API endpoints directly.
-    -   A user attempting to approve or deny a transaction they are not a part of.
-    -   Testing for potential XSS in the "shoutout/public message" field.
+### 4.6. Performance
+| Test Case ID | Description | Expected Result |
+| :--- | :--- | :--- |
+| PERF-01 | With 200+ users in the database, a user loads the "Give Kudo" page. | The API call to `GET /api/users` responds in under 500ms. The recipient dropdown is populated successfully. |
 
-Once these questions are answered, a detailed list of test scenarios and cases can be developed.
+---
+
+## 5. Appendix: Resolved Questions
+
+<details>
+<summary>View initial Q&A</summary>
+
+1.  **Q: Transaction Logic & Race Conditions:** What happens if a user with 100 credits sends two 75-credit kudos, and an admin tries to approve both?
+    -   **A:** The first approval succeeds, but the second one fails. The admin receives a warning that the user has insufficient credits. A future iteration will introduce a "pending credits" system to handle this more proactively.
+
+2.  **Q: User Transaction History:** Should users have a personal view of their `pending` or `denied` transactions?
+    -   **A:** No, this is out of scope for the MVP and will be considered for a future iteration.
+
+3.  **Q: Notification Mechanism:** What is the "simple notification" for a denied transaction?
+    -   **A:** A temporary toast/snackbar message in the UI is sufficient.
+
+4.  **Q: User-Facing Error Handling:** What are the specific error messages for common failures?
+    -   **A:**
+        -   Incorrect login: "Cannot login"
+        -   Missing form fields: "please fill out all required fields"
+        -   Giving more credits than available: "You cannot give more credits than you have"
+        -   Giving kudos to yourself: "You cannot give kudos to yourself"
+
+5.  **Q: Performance Testing:** Should the MVP test plan include performance/load testing?
+    -   **A:** Yes, initial performance testing should be included.
+
+6.  **Q: Security Test Cases:** Should we explicitly test for common application-level vulnerabilities?
+    -   **A:** Yes, tests should be included for unauthorized API access and potential XSS in user-provided text fields.
+
+7.  **Q: Performance Benchmarks:** For the initial performance testing of `GET /api/users` with 200+ users, what would be an acceptable API response time to test against?
+    -   **A:** Under 500ms.
+
+</details>
