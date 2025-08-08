@@ -70,7 +70,7 @@ I found myself fairly fatigued by end of Day 2 and going into Day 3.  Reflecting
 Faith and I had the idea of experimenting with Gemini individually and seeing how similar or different our applications turned out.  We both started off with the same requirements and tech plan docs that Faith generated on the first day (contained in [prd.md](prd.md) and [techplan.md](techplan.md)).
 
 * Faith took the approach of using Gemini Code Assist in Agent mode while I used Chat mode.
-* Faith was took a more interactive approach, providing more guidance to Gemini and correcting mistakes Gemini would make.  I took a more "hands-off" approach, accepting all of Gemini's suggestions and adding files and code as instructed.  
+* Faith took a more interactive approach, providing more guidance to Gemini and correcting mistakes Gemini would make.  I took a more "hands-off" approach, accepting all of Gemini's suggestions and adding files and code as instructed.  
 
 After we both built out our applications we demoed them to each other.  
 * Faith's version was definitely more professional looking, though I stopped frontend development after Gemini told me it was complete.  I'm thinking if I prompted Gemini to improve some of the UI styling, it would have improved the frontend experience some.
