@@ -52,3 +52,6 @@ You can tell Gemini what doesn't look right and it's quick to change/improve.  Y
 
 ### Less overhead for generating tests!
 Another quality of life improvement for engineers, esp for teams who self QA.  Generating test cases and test plans can help ease the process of bug-bashing, later.
+
+### Fatigue and developing intuition
+I found myself fairly fatigued by end of Day 2 and going into Day 3.  Reflecting back, I think it's b/c I was in "micro-manager" mode, which isn't a mode I prefer to be in (and definitely not for a couple days straight).  I'm constantly having to check and double check with Gemini before we move forward.  However, that is the price of developing something quick.  I think for most people it will take some time to develop the intuition on when to "drive" (be the coder) vs being a "backseat driver" (being the prompter).
