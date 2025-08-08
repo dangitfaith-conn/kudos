@@ -55,3 +55,57 @@ Another quality of life improvement for engineers, esp for teams who self QA.  G
 
 ### Fatigue and developing intuition
 I found myself fairly fatigued by end of Day 2 and going into Day 3.  Reflecting back, I think it's b/c I was in "micro-manager" mode, which isn't a mode I prefer to be in (and definitely not for a couple days straight).  I'm constantly having to check and double check with Gemini before we move forward.  However, that is the price of developing something quick.  I think for most people it will take some time to develop the intuition on when to "drive" (be the coder) vs being a "backseat driver" (being the prompter).
+
+# Jon's Notes
+## Observations
+* As someone who has little experience in building an application from scratch, and minimal experience in front end development, I found Gemini Code Assist to be incredibly helpful.  I was able to stand up a fully functional application with a back and front end in 2 days.  Without Gemini's help, this task would no doubt have taken me much longer.
+* I used Gemini in Chat mode to develop the application.  I found it to be very educational to follow the explanations of each instructional step that Gemini suggested. 
+* I did find it sometimes tempting to just accept the code supplied by Gemini without taking the time to fully understand it.
+* I switched to use Gemini in Agent mode to see if it could generate unit tests.
+  * I found Agent mode to be easier to just click "Accept Changes" and have Gemini do all the work for you.  
+  * Gemini had issues getting the unit tests to all pass.  It took more than 5 iterations for it to finally get all tests to pass.
+
+
+## Differences in Approach: Faith vs. Jon
+Faith and I had the idea of experimenting with Gemini individually and seeing how similar or different our applications turned out.  We both started off with the same requirements and tech plan docs that Faith generated on the first day (contained in [prd.md](prd.md) and [techplan.md](techplan.md)).
+
+* Faith took the approach of using Gemini Code Assist in Agent mode while I used Chat mode.
+* Faith was took a more interactive approach, providing more guidance to Gemini and correcting mistakes Gemini would make.  I took a more "hands-off" approach, accepting all of Gemini's suggestions and adding files and code as instructed.  
+
+After we both built out our applications we demoed them to each other.  
+* Faith's version was definitely more professional looking, though I stopped frontend development after Gemini told me it was complete.  I'm thinking if I prompted Gemini to improve some of the UI styling, it would have improved the frontend experience some.
+* There were some feature differences between our versions, namely that Faith's version had separated the "Give Kudos" feature to a separate UI, while mine was included in the Dashboard.
+
+
+I used Gemini to compare our two branches and this is the output:
+## Branch Comparison: `jon-implementation` vs. `faith-implementation`
+
+Based on the file differences, the `faith-implementation` branch represents a major refactoring and restructuring of the project compared to the `jon-implementation` branch. Here are the main differences:
+
+### Project Restructuring
+
+*   **New Directory Structure:** The `faith-implementation` branch introduces a new, more organized directory structure. The original `kudos-backend` and `kudos-frontend` directories have been replaced by `server` and `client` directories, respectively.
+*   **Clearer Separation:** This new structure creates a clearer separation between the backend and frontend code, making the project easier to navigate and maintain.
+
+### Backend Changes
+
+*   **Complete Rewrite:** The backend has been completely rewritten and is now located in the `server` directory.
+*   **New Features:** The new backend includes several new features, as indicated by the file names:
+    *   **Admin Panel:** `adminController.js` and `routes/admin.js` suggest a new admin panel with features for managing users and transactions.
+    *   **Scheduled Jobs:** `scheduler/creditRefreshJob.js` indicates a new scheduled job, likely for refreshing user credits.
+*   **Database Management:** The `faith-implementation` branch includes a new `db` directory with a `schema.sql` and `seeds.sql` file. This suggests a more robust approach to database management, with a clear schema definition and seed data.
+
+### Frontend Changes
+
+*   **Complete Rewrite:** The frontend has also been completely rewritten and is now located in the `client` directory.
+*   **New UI Components:** The new frontend includes a host of new UI components, suggesting a more modern and feature-rich user interface. Some of the new components include:
+    *   `AwardKudosForm.jsx`
+    *   `CreateUserForm.jsx`
+    *   `PendingTransactionsList.jsx`
+    *   `UserManagement.jsx`
+    *   `KudosBalanceCard.jsx`
+*   **Improved State Management:** The presence of a `contexts/AuthContext.jsx` file suggests a more modern approach to state management, likely using React's Context API.
+
+### Key Takeaway
+
+The `faith-implementation` branch represents a significant evolution of the project. It introduces a more organized project structure, a completely rewritten backend and frontend, and a host of new features. This branch appears to be a more mature and well-structured version of the application.
